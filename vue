@@ -42,8 +42,8 @@ var initEl = function (vm) {
   if (!vm.el) {
     return
   }
-  vm.$el.innerHTML = vm.$el.innerText.replace(/{{(.+?)}}/g, function (params, p1) {
-    return vm[p1]
+  vm.$el.innerHTML = vm.$el.innerHTML.replace(/{{(.+?)}}/g, function (params, key) {
+    return vm[key]
   })
 }
 new Vue({
