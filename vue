@@ -1,8 +1,9 @@
+var env = 'dev'
 var Vue = function (vm) {
   initProxy(vm)
   initGlobalAPI(vm)
   initEvent(vm)
-  initEl(vm)
+  initRender(vm)
 }
 var initProxy = function (vm) {
   for (const sourceKey in vm) {
@@ -38,12 +39,12 @@ var initEvent = function (vm) {
     vm[hook] && vm[hook]()
   }
 }
-var initEl = function (vm) {
+var initRender = function (vm) {
   if (!vm.el) {
     return
   }
-  vm.$el.innerHTML = vm.$el.innerHTML.replace(/{{(.+?)}}/g, function (params, key) {
-    return vm[key]
+  vm.$el.innerHTML = vm.$el.innerHTML.replace(/{{(.+?)}}/g, function (params, query) {
+    return vm[query] || '{{' + query + '}}'
   })
 }
 new Vue({
