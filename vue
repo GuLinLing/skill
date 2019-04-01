@@ -1,4 +1,3 @@
-var env = 'dev'
 var Vue = function (vm) {
   initProxy(vm)
   initGlobalAPI(vm)
