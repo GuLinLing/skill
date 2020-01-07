@@ -1,0 +1,25 @@
+var data = {
+  arr: Array.from({ length: 100 }).map((item, index) => item = index + 'px')
+}
+
+var h = document.createElement('h1')
+h.innerText = 'h'
+document.body.appendChild(h)
+
+function animation (obj, key, arr, totalProgress) {
+  var start = new Date().getTime() // 初始: 记录刚进来时的毫秒
+  var progress = 0 // 进度: 记录当前用了多少毫秒
+  var index = 0 // 索引: 动画函数里会动态计算出来当前进度应该用那个索引
+  var length = arr.length - 1 // 长度: arr的长度
+  function animationHandler () {
+    progress = new Date().getTime() - start // 拿当前时间毫秒数减去刚进来时的毫秒数得到目前为止用了多少毫秒数
+    index = parseInt(progress * length / totalProgress) // 拿当前进度乘以数组的长度再除以总进度
+    obj[key] = arr[index] ? arr[index] : arr[length] // index取不到就说明传入的时间太小，一眨眼动画就结束了
+    if (progress < totalProgress) {
+      window.requestAnimationFrame(animationHandler) // 尾递归: 在函数的最后一步自己调用自己
+    }
+  }
+  window.requestAnimationFrame(animationHandler) // 浏览器在下次重绘之前调用指定的回调函数更新动画
+}
+
+animation(h.style, 'margin-left', data.arr, 1000)
