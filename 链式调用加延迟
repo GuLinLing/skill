@@ -1,0 +1,60 @@
+function Tip (val) {
+  var delay = 0
+  var container = document.createElement('div')
+  container.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+  `
+  document.body.append(container)
+  this.update = function (val) {
+    val = val || ''
+    val ? this.show() : this.hide()
+    setTimeout(function () {
+      container.innerText = val
+    }, delay)
+    return this
+  }
+  this.delay = function (time) {
+    time = time || 1000
+    delay += time
+    setTimeout(function () {
+      delay = 0
+    }, time)
+    return this
+  }
+  this.show = function () {
+    setTimeout(function () {
+      container.style.display = 'flex'
+    }, delay)
+    return this
+  }
+  this.hide = function () {
+    setTimeout(function () {
+      container.style.display = 'none'
+    }, delay)
+    return this
+  }
+  this.update(val)
+}
+var tip = new Tip()
+  .delay(1000)
+  .update('你好')
+  .delay(1000)
+  .update('我就是胡三汉')
+  .delay(1000)
+  .update('我走了，再见')
+  .delay(2000)
+  .hide()
+  .delay(1000)
+  .update('我胡三汉又回来了')
+  .show()
+  .delay(1000)
+  .update('哈哈哈哈哈')
