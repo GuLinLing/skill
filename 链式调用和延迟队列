@@ -49,7 +49,7 @@ function Tip (text) {
   }
   this.update(text)
 }
-var tip = new Tip()
+new Tip()
   .delay(1000)
   .update('你好')
   .delay(1000)
