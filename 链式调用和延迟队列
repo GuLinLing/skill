@@ -1,4 +1,4 @@
-function Tip (val) {
+function Tip (text) {
   var delay = 0
   var container = document.createElement('div')
   container.style.cssText = `
@@ -42,7 +42,12 @@ function Tip (val) {
     }, delay)
     return this
   }
-  this.update(val)
+  this.delete = function () {
+    setTimeout(function () {
+      container.parentNode.removeChild(container)
+    }, delay)
+  }
+  this.update(text)
 }
 var tip = new Tip()
   .delay(1000)
@@ -58,3 +63,7 @@ var tip = new Tip()
   .show()
   .delay(1000)
   .update('哈哈哈哈哈')
+  .delay(1000)
+  .update('我这次真走了，88')
+  .delay(1000)
+  .delete()
